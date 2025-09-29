@@ -8,19 +8,19 @@ function createPlayer(name, marker) {
   return { name, marker };
 }
 
-const justice = createPlayer("Justice", "X");
-const doris = createPlayer("Doris", "O");
-console.log({ name: justice.name, marker: justice.marker });
-console.log({ name: doris.name, marker: doris.marker });
+const player1 = createPlayer("Justice", "X");
+const player2 = createPlayer("Doris", "O");
+console.log({ name: player1.name, marker: player1.marker });
+console.log({ name: player2.name, marker: player2.marker });
 
-let currentPlayer = justice;
+let currentPlayer = player1;
 
 // Switch player
 function switchPlayer() {
-  if (currentPlayer == justice) {
-    currentPlayer = doris;
+  if (currentPlayer == player1) {
+    currentPlayer = player2;
   } else {
-    currentPlayer = justice;
+    currentPlayer = player1;
   }
 }
 
@@ -28,19 +28,32 @@ function switchPlayer() {
 function makeMove(positon) {
   if (gameBoard[positon] === " ") {
     gameBoard[positon] = currentPlayer.marker;
+    cells[positon].textContent = currentPlayer.marker; // update UI
     console.log(currentPlayer.name + " placed " + currentPlayer.marker);
 
     // check winner
     let winner = checkWinner();
     if (winner) {
       console.log(winner, "wins the game");
+      message.textContent = `${winner} wins`;
+      console.log(gameBoard);
+      disableBoard();
+      return;
     }
 
     console.log(gameBoard);
+    if (checkDraw()) {
+      console.log("it's a draw!");
+      message.textContent = "It's a draw!";
+      console.log(gameBoard);
+      disableBoard();
+      return;
+    }
 
     switchPlayer();
   } else {
     console.log("invalid move, try again!");
+    message.textContent = `${currentPlayer.name}'s turn`;
   }
 }
 
@@ -53,15 +66,24 @@ function checkWinner() {
       gameBoard[a] === gameBoard[b] &&
       gameBoard[a] === gameBoard[c]
     ) {
-      if (gameBoard[a] === justice.marker) {
-        return justice.name;
+      if (gameBoard[a] === player1.marker) {
+        return player1.name;
       } else {
-        return doris.name;
+        return player2.name;
       } // return the winner 'X', or 'O'
     }
   }
 
   return null;
+}
+
+// check draw
+function checkDraw() {
+  // if no empty spaces and no winner
+  if (!gameBoard.includes(" ") && !checkWinner()) {
+    return true;
+  }
+  return false;
 }
 
 const winningCombos = [
@@ -74,4 +96,42 @@ const winningCombos = [
   [0, 4, 8],
   [2, 4, 6], // diagonals
 ];
-makeMove(1);
+
+// makeMove(1);
+
+// Guide
+console.log(`to play call the "makeMove()" and pass in your position`);
+
+// UI with JS
+const cells = document.querySelectorAll(".cell");
+console.log(cells);
+const message = document.getElementById("message");
+const resetBtn = document.getElementById("reset");
+
+// Handle click on a cell
+
+cells.forEach((cell) => {
+  cell.addEventListener("click", () => {
+    const index = cell.getAttribute("data-index");
+    makeMove(index);
+  });
+});
+
+// Disable Board
+function disableBoard() {
+  cells.forEach((cell) => (cell.style.pointerEvents = "none"));
+}
+
+resetBtn.addEventListener("click", resetGame);
+
+function resetGame() {
+  gameBoard.fill(" ");
+  cells.forEach((cell) => {
+    cell.textContent = "";
+    cell.style.pointerEvents = auto;
+  });
+  currentPlayer = player1;
+  message.textContent = `${currentPlayer.name}'s turn`;
+  console.log("Game reset!");
+  console.log(gameBoard);
+}
