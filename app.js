@@ -1,19 +1,50 @@
 // Building a Tic Tac Toe
 
 const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-
 console.log(gameBoard);
+
+// ----------------------------------------------
+// Game start btn
+
+const start = document.querySelector(".btn-start");
+const backgroundLayer = document.querySelector(".background-overlay");
+const gameField = document.getElementById("game");
+const playerForm = document.querySelector(".player-form");
+
+// get user inputs
+let player1Name = "";
+let player2Name = "";
+let currentPlayer;
+
+// Start Game
+start.addEventListener("click", () => {
+  console.log("clicked");
+  playerForm.style.display = "block";
+  backgroundLayer.style.display = "none";
+});
 
 function createPlayer(name, marker) {
   return { name, marker };
 }
 
-const player1 = createPlayer("Justice", "X");
-const player2 = createPlayer("Doris", "O");
-console.log({ name: player1.name, marker: player1.marker });
-console.log({ name: player2.name, marker: player2.marker });
+document.getElementById("player-form ").addEventListener("submit", (e) => {
+  e.preventDefault();
+  player1Name = document.getElementById("player1").value;
+  player2Name = document.getElementById("player2").value;
 
-let currentPlayer = player1;
+  playerForm.style.display = "none";
+
+  gameField.style.display = "block";
+
+  // Create player
+  player1 = createPlayer(player1Name, "X");
+  player2 = createPlayer(player2Name, "O");
+  console.log({ name: player1.name, marker: player1.marker });
+  console.log({ name: player2.name, marker: player2.marker });
+  currentPlayer = player1;
+
+  console.log(player1Name, player2Name);
+});
 
 // Switch player
 function switchPlayer() {
@@ -41,6 +72,7 @@ function makeMove(positon) {
       console.log(winner, "wins the game");
       message.textContent = `${winner} wins`;
       console.log(gameBoard);
+      playAgainBtn.style.display = "block";
       disableBoard();
       return;
     }
@@ -50,6 +82,7 @@ function makeMove(positon) {
       console.log("it's a draw!");
       message.textContent = "It's a draw!";
       console.log(gameBoard);
+      playAgainBtn.style.display = "block";
       disableBoard();
       return;
     }
@@ -111,6 +144,7 @@ const cells = document.querySelectorAll(".cell");
 console.log(cells);
 const message = document.getElementById("message");
 const resetBtn = document.getElementById("reset");
+const playAgainBtn = document.getElementById("play-again");
 
 // Handle click on a cell
 
@@ -126,15 +160,33 @@ function disableBoard() {
   cells.forEach((cell) => (cell.style.pointerEvents = "none"));
 }
 
+playAgainBtn.addEventListener("click", playAgain);
 resetBtn.addEventListener("click", resetGame);
 
+function playAgain() {
+  gameBoard.fill(" ");
+  cells.forEach((cell) => {
+    cell.textContent = "";
+    cell.style.pointerEvents = "auto";
+    cell.style.backgroundColor = "#1e3c72";
+  });
+  currentPlayer = player1;
+  message.textContent = `${currentPlayer.name}'s turn`;
+  console.log("Game reset!");
+  console.log(gameBoard);
+}
+
+// reset
 function resetGame() {
   gameBoard.fill(" ");
   cells.forEach((cell) => {
     cell.textContent = "";
     cell.style.pointerEvents = "auto";
-    cell.style.backgroundColor = "##1e3c72;";
+    cell.style.backgroundColor = "#1e3c72";
   });
+  gameField.style.display = "none";
+  playerForm.style.display = "block";
+
   currentPlayer = player1;
   message.textContent = `${currentPlayer.name}'s turn`;
   console.log("Game reset!");

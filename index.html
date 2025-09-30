@@ -77,7 +77,7 @@
       </div>
     </div>
 
-    <div class="input-field">
+    <form class="player-form" id="player-form ">
       <h2>Enter Players' Names</h2>
 
       <label for="player1">Player 1 Name:</label>
@@ -85,6 +85,7 @@
         type="text"
         id="player1"
         name="player1"
+        required
         placeholder="Enter Player 1"
       />
 
@@ -93,11 +94,12 @@
         type="text"
         id="player2"
         name="player2"
+        required
         placeholder="Enter Player 2"
       />
 
-      <button class="btn-submit">Play</button>
-    </div>
+      <button type="submit" id="btn-submit" class="btn-submit">Play</button>
+    </form>
 
     <div id="game">
       <h1>Tic Tac Toe</h1>
@@ -113,6 +115,7 @@
         <div class="cell" data-index="8"></div>
       </div>
       <p id="message"></p>
+      <button id="play-again">Play Again</button>
       <button id="reset">Reset</button>
     </div>
 
