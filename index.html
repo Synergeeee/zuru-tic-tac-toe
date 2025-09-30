@@ -4,10 +4,101 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Tic Tac Toe</title>
   </head>
   <body>
     <!-- Game UI -->
+    <div class="background-overlay">
+      <h1>Welcome to Zuru's Tic Tac Toe Game</h1>
+      <div class="game-rules">
+        <div id="instructions">
+          <h2>⚙️ How to Play</h2>
+
+          <h3>Player Setup</h3>
+          <ul>
+            <li>Player 1 uses marker <strong>X</strong>.</li>
+            <li>Player 2 uses marker <strong>O</strong>.</li>
+            <li>Player 1 (<strong>X</strong>) always starts first.</li>
+          </ul>
+
+          <h3>Turns</h3>
+          <ul>
+            <li>
+              Players take turns clicking an empty cell to place their marker.
+            </li>
+            <li>A move is invalid if the cell is already occupied.</li>
+          </ul>
+
+          <h3>Winning Condition</h3>
+          <ul>
+            <li>A player wins by placing three of their markers in a row:</li>
+            <li>Horizontally (across any row)</li>
+            <li>Vertically (down any column)</li>
+            <li>Diagonally (corner to corner)</li>
+          </ul>
+
+          <h3>Draw Condition</h3>
+          <ul>
+            <li>
+              If all 9 cells are filled and no player has won, the game ends in
+              a draw.
+            </li>
+          </ul>
+
+          <h3>Resetting</h3>
+          <ul>
+            <li>After a win or draw, the game board is disabled.</li>
+            <li>Use the <strong>Reset</strong> button to start a new match.</li>
+          </ul>
+
+          <h2>🏆 Rules at a Glance</h2>
+          <ul>
+            <li>Player 1 (<strong>X</strong>) goes first.</li>
+            <li>Players alternate turns, placing one marker per turn.</li>
+            <li>A move must be made in an empty cell.</li>
+            <li>First to get 3 in a row wins.</li>
+            <li>If the board is full and no one wins → it’s a draw.</li>
+          </ul>
+        </div>
+        <button class="btn-start">Start Game</button>
+      </div>
+    </div>
+
+    <div class="input-field">
+      <h2>Enter Players' Names</h2>
+
+      <label for="player1">Player 1 Name:</label>
+      <input
+        type="text"
+        id="player1"
+        name="player1"
+        placeholder="Enter Player 1"
+      />
+
+      <label for="player2">Player 2 Name:</label>
+      <input
+        type="text"
+        id="player2"
+        name="player2"
+        placeholder="Enter Player 2"
+      />
+
+      <button class="btn-submit">Play</button>
+    </div>
+
     <div id="game">
       <h1>Tic Tac Toe</h1>
       <div id="board">

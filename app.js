@@ -17,11 +17,8 @@ let currentPlayer = player1;
 
 // Switch player
 function switchPlayer() {
-  if (currentPlayer == player1) {
-    currentPlayer = player2;
-  } else {
-    currentPlayer = player1;
-  }
+  currentPlayer = currentPlayer === player1 ? player2 : player1;
+  message.textContent = `${currentPlayer.name}'s turn`;
 }
 
 // make a move
@@ -31,6 +28,13 @@ function makeMove(positon) {
     cells[positon].textContent = currentPlayer.marker; // update UI
     console.log(currentPlayer.name + " placed " + currentPlayer.marker);
 
+    const cell = cells[positon];
+    // cell.textContent = currentPlayer.marker;
+    if (currentPlayer.marker === "X") {
+      cell.style.backgroundColor = "red";
+    } else {
+      cell.style.backgroundColor = "blue";
+    }
     // check winner
     let winner = checkWinner();
     if (winner) {
@@ -128,7 +132,8 @@ function resetGame() {
   gameBoard.fill(" ");
   cells.forEach((cell) => {
     cell.textContent = "";
-    cell.style.pointerEvents = auto;
+    cell.style.pointerEvents = "auto";
+    cell.style.backgroundColor = "##1e3c72;";
   });
   currentPlayer = player1;
   message.textContent = `${currentPlayer.name}'s turn`;
